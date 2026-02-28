@@ -1,0 +1,15 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Mission Control & Demo Simulator
+    match /vault/{document=**} {
+      allow read, write: if true;
+    }
+    match /executions/{docId} {
+      allow read, write: if true;
+    }
+    match /chart_data/{docId} {
+      allow read, write: if true;
+    }
+  }
+}

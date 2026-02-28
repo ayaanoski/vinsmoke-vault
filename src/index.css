@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Outfit", sans-serif;
+
+  --color-main-bg: #000000;
+  --color-surface: #141414;
+  --color-accent: #AEFF00;
+  /* Electric Lime */
+  --color-secondary: #FF9900;
+  /* Vibrant Orange */
+  --color-text-main: #FFFFFF;
+  --color-text-muted: #888888;
+  --color-border: #222222;
+
+  --radius-xl: 40px;
+}
+
+@layer base {
+  body {
+    @apply bg-main-bg text-text-main font-sans antialiased selection:bg-accent selection:text-black overflow-x-hidden overflow-y-auto;
+  }
+}
+
+/* UI Overhaul Components */
+
+.pill-card {
+  @apply bg-surface border border-border rounded-xl p-8 transition-all duration-300;
+}
+
+.pill-nav {
+  @apply bg-surface/50 border border-border rounded-full px-6 py-2 flex items-center gap-4;
+}
+
+.pill-button {
+  @apply rounded-full px-8 py-3 font-bold transition-all duration-300 flex items-center gap-2;
+}
+
+.pill-button-active {
+  @apply bg-white text-black;
+}
+
+.pill-button-inactive {
+  @apply hover:bg-white/5 text-text-muted hover:text-white;
+}
+
+.stat-value {
+  @apply font-display text-4xl font-black tracking-tighter;
+}
+
+.stat-label {
+  @apply text-[11px] font-bold text-text-muted uppercase tracking-[0.1em];
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.dot-indicator {
+  @apply w-2 h-2 rounded-full;
+}
+
+.grid-layout {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  @apply min-h-screen bg-main-bg;
+}
+
+@media (max-width: 1024px) {
+  .grid-layout {
+    display: block;
+    padding-bottom: 100px;
+  }
+
+  .pill-card {
+    @apply p-6;
+  }
+
+  .stat-value {
+    @apply text-3xl;
+  }
+}
