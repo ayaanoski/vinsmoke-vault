@@ -1,9 +1,5 @@
 # 🛡️ Vinsmoke's Vault: Alpha Core Alpha
 
-<div align="center">
-  <img width="1200" height="auto" alt="Vinsmoke Banner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
-
 > **Vinsmoke's Vault** is an autonomous DeFi arbitrage engine designed for the next generation of liquidity management. It bridges the gap between raw on-chain execution and high-fidelity intelligence monitoring.
 
 ---
