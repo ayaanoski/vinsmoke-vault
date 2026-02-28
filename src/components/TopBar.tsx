@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAccount, useConnect, useDisconnect } from 'wagmi';
-import { Search, Lock, Wallet, BarChart3, ChevronDown, Bell, Shield } from 'lucide-react';
+import { Search, Lock, Wallet, BarChart3, Shield } from 'lucide-react';
 
 const TopBar = ({ activeTab, setActiveTab }: { activeTab: string, setActiveTab: (t: string | any) => void }) => {
     const { address, isConnected } = useAccount();
@@ -52,34 +52,21 @@ const TopBar = ({ activeTab, setActiveTab }: { activeTab: string, setActiveTab: 
                     <Search className="w-5 h-5" />
                 </button>
 
-                {/* Profile Avatar Pill - Optimized for Mobile */}
-                <div className="flex items-center gap-3 bg-surface/40 lg:bg-transparent p-1 pl-3 lg:p-0 rounded-full border border-white/5 lg:border-none">
-                    <div className="text-right hidden lg:block">
-                        <p className="text-[13px] font-bold text-white leading-tight">Vinsmoke Cmdr</p>
-                        <p className="text-[11px] font-medium text-text-muted leading-tight">@VaultEngine</p>
-                    </div>
-
-                    <div className="relative group shrink-0">
-                        <div className="w-8 h-8 lg:w-12 h-12 rounded-full overflow-hidden border-2 border-surface shadow-2xl group-hover:border-accent transition-all cursor-pointer relative">
-                            <img
-                                src="https://ui-avatars.com/api/?name=Vinsmoke&background=AEFF00&color=000"
-                                alt="Avatar"
-                                className="w-full h-full object-cover"
-                            />
-                            {/* Notification Dot */}
-                            <div className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full border border-black" />
+                {/* Connection Status Indicator */}
+                {isConnected && (
+                    <div className="flex items-center gap-2 bg-surface/40 lg:bg-transparent p-1 pl-4 rounded-full border border-white/5 lg:border-none">
+                        <div className="flex flex-col text-right hidden lg:block mr-2">
+                            <span className="text-[10px] font-black text-accent uppercase tracking-widest">Protocol Active</span>
+                            <span className="text-[9px] text-text-muted font-bold uppercase tracking-tight opacity-50">{address?.slice(0, 6)}...{address?.slice(-4)}</span>
                         </div>
-
-                        {isConnected && (
-                            <button
-                                onClick={() => disconnect()}
-                                className="absolute -bottom-1 -right-1 w-4 h-4 bg-surface border border-border rounded-full flex items-center justify-center text-text-muted hover:text-red-500 transition-all shadow-lg"
-                            >
-                                <Lock className="w-2.5 h-2.5" />
-                            </button>
-                        )}
+                        <button
+                            onClick={() => disconnect()}
+                            className="w-8 h-8 lg:w-11 lg:h-11 bg-surface border border-border rounded-full flex items-center justify-center text-text-muted hover:text-red-500 transition-all shadow-lg group"
+                        >
+                            <Lock className="w-3 h-3 lg:w-4 lg:h-4 group-hover:scale-110 transition-transform" />
+                        </button>
                     </div>
-                </div>
+                )}
 
                 {!isConnected && (
                     <button

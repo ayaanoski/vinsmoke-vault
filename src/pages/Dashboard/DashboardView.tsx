@@ -1,15 +1,39 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ChevronRight, ArrowUpRight, ArrowDown, Zap, Activity, Terminal, RefreshCw, Layers, TrendingUp, ChevronDown } from 'lucide-react';
 import PerformanceChart from '../../components/PerformanceChart';
 
 const DashboardView = ({ vaultStatus, history, totalAssets, handleStrike, chartData, chartRange, setChartRange, setActiveTab }: any) => {
+    const [countdown, setCountdown] = useState(15);
+
+    useEffect(() => {
+        if (vaultStatus?.nextScan) {
+            setCountdown(vaultStatus.nextScan);
+        }
+    }, [vaultStatus]);
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setCountdown((prev) => (prev > 0 ? prev - 1 : 15));
+        }, 1000);
+        return () => clearInterval(timer);
+    }, []);
+
     return (
         <div className="flex flex-col gap-8 pb-10">
             {/* Header - Minimalist text from reference */}
-            <div className="flex flex-col gap-1">
-                <h1 className="text-2xl lg:text-4xl font-black tracking-[0.2em] text-white uppercase font-display leading-none">Intelligence</h1>
-                <p className="text-[10px] lg:text-[11px] text-accent font-black uppercase tracking-[0.3em] opacity-80 italic">Sentinel / 2.8ms Latency</p>
+            <div className="flex justify-between items-end">
+                <div className="flex flex-col gap-1">
+                    <h1 className="text-2xl lg:text-4xl font-black tracking-[0.2em] text-white uppercase font-display leading-none">Intelligence</h1>
+                    <p className="text-[10px] lg:text-[11px] text-accent font-black uppercase tracking-[0.3em] opacity-80 italic italic-none">Sentinel / 2.8ms Latency</p>
+                </div>
+                <div className="flex flex-col items-end gap-1">
+                    <span className="text-[9px] font-black text-text-muted uppercase tracking-[0.2em]">Next Scan</span>
+                    <div className="flex items-center gap-2">
+                        <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+                        <span className="font-display font-black text-xl lg:text-2xl text-white italic tracking-tighter">00:{countdown < 10 ? `0${countdown}` : countdown}</span>
+                    </div>
+                </div>
             </div>
 
             <div className="flex flex-col lg:grid lg:grid-cols-12 lg:gap-10 gap-8">
